@@ -1,0 +1,5 @@
+#include "../src/core/global/Global.h"
+#include "../src/core/io/Log.h"
+#include "../src/core/kernel/Object.h"
+#include "../src/core/kernel/Application.h"
+#include "../src/gui/kernel/GuiApplication.h"
