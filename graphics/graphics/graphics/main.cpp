@@ -1,8 +1,9 @@
-#include "window.h"
+#include "test.h"
 
 int main()
 {
-	testWindow();
+	//testWindow();
+	testTriangle();
 
 	return 0;
 }

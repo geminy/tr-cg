@@ -1,14 +1,14 @@
-#include "window.h"
+#include "test.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <cstdio>
 
-int ScreenWdith = 400;
-int ScreenHeight = 300;
+static int ScreenWdith = 400;
+static int ScreenHeight = 300;
 
-void framebufferSizeCallback(GLFWwindow* window, int width, int height)
+static void framebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	printf("framebufferSizeCallback width:%d height:%d\n", width, height);
 	glViewport(0, 0, width, height);
@@ -29,7 +29,7 @@ int testWindow()
 	glfwGetVersion(&major, &minor, &rev);
 	printf("testWindow glfw version %d.%d.%d\n", major, minor, rev);
 
-	auto window = glfwCreateWindow(ScreenWdith, ScreenHeight, "testWindow", nullptr, nullptr);
+	auto window = glfwCreateWindow(ScreenWdith, ScreenHeight, "Window", nullptr, nullptr);
 	if (window == nullptr) {
 		printf("testWindow glfwCreateWindow error\n");
 		glfwTerminate();
@@ -46,8 +46,7 @@ int testWindow()
 
 	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
-	while (!glfwWindowShouldClose(window))
-	{
+	while (!glfwWindowShouldClose(window)) {
 		int static count = 0;
 		++count;
 		if (count % 100 == 0) {
