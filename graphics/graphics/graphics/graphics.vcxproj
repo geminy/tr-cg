@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="quadrangle.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>

@@ -3,5 +3,6 @@
 
 int testWindow();
 int testTriangle();
+int testQuadrangle();
 
 #endif // !TEST_H

@@ -5,8 +5,8 @@
 
 #include <cstdio>
 
-int testTriangle() {
-    printf("testTriangle begin\n");
+int testQuadrangle() {
+    printf("testQuadrangle begin\n");
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -17,49 +17,63 @@ int testTriangle() {
 
     int screenWidth = 400;
     int screenHeight = 300;
-    auto window = glfwCreateWindow(screenWidth, screenHeight, "Triangle", nullptr, nullptr);
+    auto window = glfwCreateWindow(screenWidth, screenHeight, "Quadrangle", nullptr, nullptr);
     if (window == nullptr) {
-        printf("testTriangle glfwCreateWindow error\n");
+        printf("testQuadrangle glfwCreateWindow error\n");
         glfwTerminate();
         return -1;
     }
     glfwMakeContextCurrent(window);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        printf("testTriangle gladLoadGLLoader error\n");
+        printf("testQuadrangle gladLoadGLLoader error\n");
         glfwTerminate();
         return -1;
     }
 
     glViewport(0, 0, screenWidth, screenHeight);
 
-    // vao
     GLuint vertexArrayObject;
     glGenVertexArrays(1, &vertexArrayObject);
     glBindVertexArray(vertexArrayObject);
 
-    // vbo
     GLuint vertexBufferObject;
     glGenBuffers(1, &vertexBufferObject);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 
-    // bind vertex data to current buffer
-    float triangle[] = {
-        -0.5f, -0.5f, 0.0f, // 左下
-        0.5f, -0.5f, 0.0f, // 右下
-        0.0f,  0.5f, 0.0f // 正上
+    // 四边形的顶点数据
+    float vertices[] = {
+        // 第一个三角形
+        0.5f, 0.5f, 0.0f,     // 右上
+        0.5f, -0.5f, 0.0f,    // 右下
+        -0.5f, -0.5f, 0.0f,   // 左下
+        // 第二个三角形
+        -0.5f, -0.5f, 0.0f,   // 左下（重复）
+        0.5f, 0.5f, 0.0f,     // 右上（重复）
+        -0.5f, 0.5f, 0.0f     // 左上
     };
-    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
 
-    // set vertex attribute
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // ebo
+    GLuint elementBufferObject;
+    glGenBuffers(1, &elementBufferObject);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBufferObject);
+
+    // 索引数据
+    unsigned int indices[] = {
+        0, 1, 5,              // 第一个三角形
+        1, 2, 5               // 第二个三角形
+    };
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
 
-    // unbind
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-    // shader
     const char* vertexShaderSource =
         "#version 330 core\n"
         "layout (location = 0) in vec3 aPos;\n"
@@ -84,7 +98,7 @@ int testTriangle() {
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vSuccess);
     if (!vSuccess) {
         glGetShaderInfoLog(vertexShader, 512, nullptr, vInfoLog);
-        printf("testTriangle compile vertex shader error:%s\n", vInfoLog);
+        printf("testQuadrangle compile vertex shader error:%s\n", vInfoLog);
     }
 
     int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -95,7 +109,7 @@ int testTriangle() {
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fSuccess);
     if (!fSuccess) {
         glGetShaderInfoLog(fragmentShader, 512, nullptr, fInfoLog);
-        printf("testTriangle compile fragment shader error:%s\n", fInfoLog);
+        printf("testQuadrangle compile fragment shader error:%s\n", vInfoLog);
     }
 
     int shaderProgram = glCreateProgram();
@@ -107,36 +121,36 @@ int testTriangle() {
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &pSuccess);
     if (!pSuccess) {
         glGetProgramInfoLog(shaderProgram, 512, nullptr, pInfoLog);
-        printf("testTriangle link program error:%s\n", pInfoLog);
+        printf("testQuadrangle link program error:%s\n", pInfoLog);
     }
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    // 线框模式
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     while (!glfwWindowShouldClose(window)) {
         glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram); // use shader program
+        glUseProgram(shaderProgram);
 
-        glBindVertexArray(vertexArrayObject); // bind vao
-        glDrawArrays(GL_TRIANGLES, 0, 3); // draw trangle
-        glBindVertexArray(0); // unbind
+        glBindVertexArray(vertexArrayObject);
+        //glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // using ebo
+        glBindVertexArray(0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-    
-    // cleanup
+
     glDeleteVertexArrays(1, &vertexArrayObject);
     glDeleteBuffers(1, &vertexBufferObject);
+    glDeleteBuffers(1, &elementBufferObject);
 
     glfwTerminate();
 
-    printf("testTriangle end\n");
+    printf("testQuadrangle end\n");
 
     return 0;
 }

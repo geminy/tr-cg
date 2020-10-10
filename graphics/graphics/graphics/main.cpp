@@ -3,7 +3,8 @@
 int main()
 {
 	//testWindow();
-	testTriangle();
+	//testTriangle();
+	testQuadrangle();
 
 	return 0;
 }
