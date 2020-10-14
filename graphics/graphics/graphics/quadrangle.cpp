@@ -79,7 +79,7 @@ void Quadrangle::render() const {
     mShader->useProgram();
 
     glBindVertexArray(mVAO);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // using ebo
+    //glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // using ebo
     glBindVertexArray(0);
 }
