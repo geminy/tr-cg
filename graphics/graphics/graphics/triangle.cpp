@@ -1,47 +1,17 @@
-#include "test.h"
+#include "Triangle.h"
+
+#include "Shader.h"
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
-#include <cstdio>
-
-int testTriangle() {
-    printf("testTriangle begin\n");
-
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_RESIZABLE, false);
-
-    int screenWidth = 400;
-    int screenHeight = 300;
-    auto window = glfwCreateWindow(screenWidth, screenHeight, "Triangle", nullptr, nullptr);
-    if (window == nullptr) {
-        printf("testTriangle glfwCreateWindow error\n");
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        printf("testTriangle gladLoadGLLoader error\n");
-        glfwTerminate();
-        return -1;
-    }
-
-    glViewport(0, 0, screenWidth, screenHeight);
-
+Triangle::Triangle() {
     // vao
-    GLuint vertexArrayObject;
-    glGenVertexArrays(1, &vertexArrayObject);
-    glBindVertexArray(vertexArrayObject);
+    glGenVertexArrays(1, &mVAO);
+    glBindVertexArray(mVAO);
 
     // vbo
-    GLuint vertexBufferObject;
-    glGenBuffers(1, &vertexBufferObject);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
+    glGenBuffers(1, &mVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
     // bind vertex data to current buffer
     float triangle[] = {
@@ -76,67 +46,27 @@ int testTriangle() {
         "    FragColor = vec4(1.0f, 0.0f, 0.f, 1.0f);\n"
         "}\n\0";
 
-    int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-    glCompileShader(vertexShader);
-    int vSuccess;
-    char vInfoLog[512];
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vSuccess);
-    if (!vSuccess) {
-        glGetShaderInfoLog(vertexShader, 512, nullptr, vInfoLog);
-        printf("testTriangle compile vertex shader error:%s\n", vInfoLog);
-    }
-
-    int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-    glCompileShader(fragmentShader);
-    int fSuccess;
-    char fInfoLog[512];
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fSuccess);
-    if (!fSuccess) {
-        glGetShaderInfoLog(fragmentShader, 512, nullptr, fInfoLog);
-        printf("testTriangle compile fragment shader error:%s\n", fInfoLog);
-    }
-
-    int shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    int pSuccess;
-    char pInfoLog[512];
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &pSuccess);
-    if (!pSuccess) {
-        glGetProgramInfoLog(shaderProgram, 512, nullptr, pInfoLog);
-        printf("testTriangle link program error:%s\n", pInfoLog);
-    }
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    mShader = new Shader(vertexShaderSource, fragmentShaderSource);
 
     // Ïß¿òÄ£Ê½
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+}
 
-    while (!glfwWindowShouldClose(window)) {
-        glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+Triangle::~Triangle() {
+    glDisableVertexAttribArray(0);
+    glDeleteVertexArrays(1, &mVAO);
+    glDeleteBuffers(1, &mVBO);
+    delete mShader;
+    mShader = nullptr;
+}
 
-        glUseProgram(shaderProgram); // use shader program
+void Triangle::render() const {
+    glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 
-        glBindVertexArray(vertexArrayObject); // bind vao
-        glDrawArrays(GL_TRIANGLES, 0, 3); // draw trangle
-        glBindVertexArray(0); // unbind
+    mShader->useProgram(); // use shader program
 
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-    
-    // cleanup
-    glDeleteVertexArrays(1, &vertexArrayObject);
-    glDeleteBuffers(1, &vertexBufferObject);
-
-    glfwTerminate();
-
-    printf("testTriangle end\n");
-
-    return 0;
+    glBindVertexArray(mVAO); // bind vao
+    glDrawArrays(GL_TRIANGLES, 0, 3); // draw trangle
+    glBindVertexArray(0); // unbind
 }
