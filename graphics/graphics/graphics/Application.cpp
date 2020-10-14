@@ -22,7 +22,7 @@ Application::~Application() {
 	mWindow = nullptr;
 }
 
-void Application::create() {
+void Application::create(int width, int height, const char* title) {
 	if (mCreated) {
 		return;
 	}
@@ -40,9 +40,6 @@ void Application::create() {
 	glfwGetVersion(&major, &minor, &rev);
 	printf("Application create glfwGetVersion:%d.%d.%d\n", major, minor, rev); // glfw version 3.3.2
 
-	int width = 400;
-	int height = 300;
-	const char* title = "Graphics";
 	mWindow = glfwCreateWindow(width, height, title, nullptr, nullptr); // create window
 	printf("Application create glfwCreateWindow:%p\n", mWindow);
 	glfwMakeContextCurrent(mWindow); // make context current
@@ -51,9 +48,7 @@ void Application::create() {
 	result = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress); // init glad
 	printf("Application create gladLoadGLLoader:%d\n", result);
 
-	int x = 0;
-	int y = 0;
-	glViewport(x, y, width, height); // set viewport
+	glViewport(0, 0, width, height); // set viewport
 }
 
 void Application::destroy() {
