@@ -22,33 +22,36 @@ Application::~Application() {
 	mWindow = nullptr;
 }
 
-void Application::create(int width, int height, const char* title) {
+void Application::create(int width, int height, const std::string& title) {
 	if (mCreated) {
 		return;
 	}
 	mCreated = true;
 
-	int result = glfwInit(); // init glfw
+	// 1.glfw
+	int result = glfwInit();
 	printf("Application create glfwInit:%d\n", result);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // opengl version 3.3
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // core profile: without backward compatibility
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for mac os
-	glfwWindowHint(GLFW_RESIZABLE, true); // window size can be changed
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_RESIZABLE, true);
 
 	int major, minor, rev;
 	glfwGetVersion(&major, &minor, &rev);
-	printf("Application create glfwGetVersion:%d.%d.%d\n", major, minor, rev); // glfw version 3.3.2
+	printf("Application create glfwGetVersion:%d.%d.%d\n", major, minor, rev);
 
-	mWindow = glfwCreateWindow(width, height, title, nullptr, nullptr); // create window
+	mWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 	printf("Application create glfwCreateWindow:%p\n", mWindow);
-	glfwMakeContextCurrent(mWindow); // make context current
-	glfwSetFramebufferSizeCallback(mWindow, framebufferSizeCallback); // set window size changed callback
+	glfwMakeContextCurrent(mWindow);
+	glfwSetFramebufferSizeCallback(mWindow, framebufferSizeCallback);
 
-	result = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress); // init glad
+	// 2.glad
+	result = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	printf("Application create gladLoadGLLoader:%d\n", result);
 
-	glViewport(0, 0, width, height); // set viewport
+	// 3.gl
+	glViewport(0, 0, width, height);
 }
 
 void Application::destroy() {
@@ -66,11 +69,11 @@ void Application::render(const AbstractRenderer& renderer) {
 		return;
 	}
 
-	while (!glfwWindowShouldClose(mWindow)) { // render loop
+	while (!glfwWindowShouldClose(mWindow)) {
 		renderer.render();
 
-		glfwSwapBuffers(mWindow); // swap buffer
-		glfwPollEvents(); // event poll
+		glfwSwapBuffers(mWindow);
+		glfwPollEvents();
 	}
 }
 

@@ -1,6 +1,8 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include <string>
+
 class AbstractRenderer;
 struct GLFWwindow;
 
@@ -11,7 +13,7 @@ public:
 
 	~Application();
 
-	void create(int width = 500, int height = 500, const char* title = "Graphics");
+	void create(int width = 500, int height = 500, const std::string& title = "Graphics");
 	void destroy();
 
 	void render(const AbstractRenderer& renderer);

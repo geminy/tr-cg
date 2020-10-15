@@ -4,10 +4,14 @@
 class Shader
 {
 public:
-	Shader(const char* vertexShaderSource, const char* fragmentShaderSource);
+	Shader(const char* vertex, const char* fragment, bool fromPath = false);
 	~Shader();
 
 	void useProgram();
+
+private:
+	void createProgramFramSource(const char* vertex, const char* fragment);
+	void createProgramFromPath(const char* vertex, const char* fragment);
 
 private:
 	unsigned int mProgramId;
