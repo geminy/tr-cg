@@ -60,4 +60,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shader\Sphere.frag">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\Sphere.vert">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
 </Project>
