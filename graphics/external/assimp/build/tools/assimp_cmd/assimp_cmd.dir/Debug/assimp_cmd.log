@@ -1,0 +1,8 @@
+﻿  Building Custom Rule F:/evo/github/tr-cg/graphics/external/assimp/tools/assimp_cmd/CMakeLists.txt
+  CompareDump.cpp
+  ImageExtractor.cpp
+  Main.cpp
+  WriteDumb.cpp
+  Info.cpp
+  Export.cpp
+  assimp_cmd.vcxproj -> F:\evo\github\tr-cg\graphics\external\assimp\build\tools\assimp_cmd\Debug\assimpd.exe

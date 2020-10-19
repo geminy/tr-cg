@@ -1,0 +1,13 @@
+# CMake generation dependency list for this directory.
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/CheckCSourceCompiles.cmake
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/CheckFunctionExists.c
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/CheckFunctionExists.cmake
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/CheckIncludeFile.c.in
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/CheckIncludeFile.cmake
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/CheckIncludeFileCXX.cmake
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/CheckTypeSize.c.in
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/CheckTypeSize.cmake
+F:/evo/github/tr-cg/graphics/external/assimp/build/CMakeFiles/CheckTypeSize/OFF64_T.c
+F:/evo/github/tr-cg/graphics/external/assimp/contrib/zlib/CMakeLists.txt
+F:/evo/github/tr-cg/graphics/external/assimp/contrib/zlib/zconf.h.cmakein
+F:/evo/github/tr-cg/graphics/external/assimp/contrib/zlib/zlib.pc.cmakein

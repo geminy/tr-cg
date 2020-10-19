@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+F:/Software/cmake-3.18.3-win64-x64/share/cmake-3.18/Modules/FindPackageMessage.cmake
+F:/evo/github/tr-cg/graphics/external/assimp/cmake-modules/FindRT.cmake
+F:/evo/github/tr-cg/graphics/external/assimp/code/CMakeLists.txt
