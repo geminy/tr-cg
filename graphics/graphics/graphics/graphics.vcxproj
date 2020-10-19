@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>F:\evo\github\tr-cg\graphics\external\external\glad\include;F:\evo\github\tr-cg\graphics\external\external\glfw\include;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\evo\github\tr-cg\graphics\external\external\glad\lib;F:\evo\github\tr-cg\graphics\external\external\glfw\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>F:\evo\github\tr-cg\graphics\external\stb;F:\evo\github\tr-cg\graphics\external\glm;F:\evo\github\tr-cg\graphics\external\include;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\evo\github\tr-cg\graphics\external\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -122,7 +122,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,24 +142,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Quadrangle.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelTest.cpp" />
+    <ClCompile Include="QuadrangleTest.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Sphere.cpp" />
-    <ClCompile Include="Triangle.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="SphereTest.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TriangleTest.cpp" />
+    <ClCompile Include="WindowTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractRenderer.h" />
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Quadrangle.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelTest.h" />
+    <ClInclude Include="QuadrangleTest.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="Sphere.h" />
-    <ClInclude Include="Triangle.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="SphereTest.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TriangleTest.h" />
+    <ClInclude Include="WindowTest.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\shader\Model.frag" />
+    <None Include="res\shader\Model.vert" />
     <None Include="res\shader\Sphere.frag" />
     <None Include="res\shader\Sphere.vert" />
   </ItemGroup>

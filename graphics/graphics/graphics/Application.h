@@ -13,7 +13,7 @@ public:
 
 	~Application();
 
-	void create(int width = 500, int height = 500, const std::string& title = "Graphics");
+	void create(int width = 1280, int height = 720, const std::string& title = "Graphics");
 	void destroy();
 
 	void render(const AbstractRenderer& renderer);

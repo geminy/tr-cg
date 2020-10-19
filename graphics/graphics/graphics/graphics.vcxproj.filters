@@ -18,30 +18,42 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Triangle.cpp">
+    <ClCompile Include="Camera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Quadrangle.cpp">
+    <ClCompile Include="Mesh.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sphere.cpp">
+    <ClCompile Include="Model.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadrangleTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Application.h">
@@ -50,13 +62,31 @@
     <ClInclude Include="Shader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Triangle.h">
+    <ClInclude Include="Camera.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Quadrangle.h">
+    <ClInclude Include="Mesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Sphere.h">
+    <ClInclude Include="Model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadrangleTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelTest.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,6 +95,12 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="res\shader\Sphere.vert">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\Model.frag">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\Model.vert">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
