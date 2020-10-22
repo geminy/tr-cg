@@ -14,10 +14,10 @@ public:
 	void render() const override;
 
 private:
-	Shader* mShader;
 	unsigned int mVAO;
 	unsigned int mVBO;
 	unsigned int mEBO;
+	Shader* mShader;
 };
 
 #endif // !QUADRANGLE_TEST_H

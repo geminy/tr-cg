@@ -151,6 +151,7 @@
     <ClCompile Include="QuadrangleTest.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SphereTest.cpp" />
+    <ClCompile Include="StbImageImpl.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="WindowTest.cpp" />

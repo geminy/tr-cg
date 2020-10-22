@@ -7,21 +7,23 @@
 
 #include <cstdio>
 
-static void framebufferSizeCallback(GLFWwindow* window, int width, int height)
-{
-	printf("framebufferSizeCallback window:%p width:%d height:%d\n", window, width, height);
-	glViewport(0, 0, width, height);
+static AbstractRenderer* CurrentRenderer = nullptr;
+
+static void CursorPosCallback(GLFWwindow* window, double xPos, double yPos) {
+	printf("CursorPosCallback window:%p xPos:%f yPos:%f\n", window, xPos, yPos);
+	if (CurrentRenderer != nullptr) {
+		CurrentRenderer->onMouseMoved((float)xPos, (float)yPos);
+	}
 }
 
-static void cursorPosCallback(GLFWwindow* window, double xPos, double yPos) {
-	//printf("cursorPosCallback window:%p xPos:%f yPos:%f\n", window, xPos, yPos);
+static void ScrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
+	printf("ScrollCallback window:%p xOffset:%f yOffset:%f\n", window, xOffset, yOffset);
+	if (CurrentRenderer != nullptr) {
+		CurrentRenderer->onMouseScrolled((float)xOffset, (float)yOffset);
+	}
 }
 
-static void scrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
-	//printf("scrollCallback window:%p xOffset:%f yOffset:%f\n", window, xOffset, yOffset);
-}
-
-static void processInput(GLFWwindow* window) {
+static void ProcessInput(GLFWwindow* window) {
 	static int frameCount = 0;
 	double currentFrame = glfwGetTime();
 	static double lastFrame = currentFrame;
@@ -38,22 +40,35 @@ static void processInput(GLFWwindow* window) {
 		glfwSetWindowShouldClose(window, true);
 	} else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 		printf("Application processInput w\n");
+		if (CurrentRenderer != nullptr) {
+			CurrentRenderer->onMovementUp((float)deltaTime);
+		}
 	} else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
 		printf("Application processInput s\n");
+		if (CurrentRenderer != nullptr) {
+			CurrentRenderer->onMovementDown((float)deltaTime);
+		}
 	} else if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
 		printf("Application processInput a\n");
+		if (CurrentRenderer != nullptr) {
+			CurrentRenderer->onMovementLeft((float)deltaTime);
+		}
 	} else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
 		printf("Application processInput d\n");
+		if (CurrentRenderer != nullptr) {
+			CurrentRenderer->onMovementRight((float)deltaTime);
+		}
 	}
 }
 
-Application& Application::getInstance() {
+Application& Application::GetInstance() {
 	static Application instance;
 	return instance;
 }
 
 Application::~Application() {
 	mWindow = nullptr;
+	CurrentRenderer = nullptr;
 }
 
 void Application::create(int width, int height, const std::string& title) {
@@ -79,9 +94,8 @@ void Application::create(int width, int height, const std::string& title) {
 	printf("Application create glfwCreateWindow:%p\n", mWindow);
 	glfwMakeContextCurrent(mWindow);
 
-	glfwSetFramebufferSizeCallback(mWindow, framebufferSizeCallback);
-	glfwSetCursorPosCallback(mWindow, cursorPosCallback);
-	glfwSetScrollCallback(mWindow, scrollCallback);
+	glfwSetCursorPosCallback(mWindow, CursorPosCallback);
+	glfwSetScrollCallback(mWindow, ScrollCallback);
 	glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// 2.glad
@@ -107,9 +121,11 @@ void Application::render(const AbstractRenderer& renderer) {
 		return;
 	}
 
+	CurrentRenderer = &const_cast<AbstractRenderer&>(renderer);
+	
 	while (!glfwWindowShouldClose(mWindow)) {
 		// 1.input
-		processInput(mWindow);
+		ProcessInput(mWindow);
 
 		// 2.render
 		renderer.render();

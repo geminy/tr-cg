@@ -1,12 +1,22 @@
-#ifndef __TEXTURE_H__
-#define __TEXTURE_H__
+#ifndef TEXTURE_H
+#define TEXTURE_H
 
-#include <glad/glad.h>
+#include <string>
 
 class Texture
 {
 public:
-    static unsigned int LoadTextureFromFile(const char* path);
+	Texture(const std::string& path, const std::string& type, const std::string& name);
+	~Texture();
+
+	unsigned int getId() const;
+	std::string getType() const;
+	std::string getName() const;
+
+private:
+	unsigned int mId;
+	std::string mType;
+	std::string mName;
 };
 
-#endif // !__TEXTURE_H__
+#endif // !TEXTURE_H

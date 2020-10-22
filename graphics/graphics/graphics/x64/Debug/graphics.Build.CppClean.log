@@ -3,6 +3,7 @@ f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\vc142.idb
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\windowtest.obj
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\triangletest.obj
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\texture.obj
+f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\stbimageimpl.obj
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\spheretest.obj
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\shader.obj
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\quadrangletest.obj
@@ -12,8 +13,8 @@ f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\mesh.obj
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\application.obj
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\main.obj
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\camera.obj
-f:\evo\github\tr-cg\graphics\graphics\x64\debug\graphics.exe
 f:\evo\github\tr-cg\graphics\graphics\x64\debug\graphics.ilk
+f:\evo\github\tr-cg\graphics\graphics\x64\debug\graphics.exe
 f:\evo\github\tr-cg\graphics\graphics\x64\debug\graphics.pdb
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\graphics.tlog\cl.command.1.tlog
 f:\evo\github\tr-cg\graphics\graphics\graphics\x64\debug\graphics.tlog\cl.read.1.tlog

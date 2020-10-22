@@ -14,9 +14,9 @@ public:
 	void render() const override;
 
 private:
-	Shader* mShader;
 	unsigned int mVAO;
 	unsigned int mVBO;
+	Shader* mShader;
 };
 
 #endif // !TRIANGLE_TEST_H

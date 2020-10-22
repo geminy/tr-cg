@@ -51,6 +51,9 @@
     <ClCompile Include="ModelTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="StbImageImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractRenderer.h">

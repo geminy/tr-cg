@@ -1,46 +1,59 @@
 #include "Texture.h"
 
+#include <glad/glad.h>
+#include <stb_image.h>
 
-#include "stb_image.h"
+#include <cstdio>
 
-#include "iostream"
-
-unsigned int Texture::LoadTextureFromFile(const char* path)
+Texture::Texture(const std::string& path, const std::string& type, const std::string& name)
+    : mType(type), mName(name)
 {
-    unsigned int texture_id;
-    glGenTextures(1, &texture_id);
+    glGenTextures(1, &mId);
 
-    int width, height, nr_channels;
-    unsigned char* data = stbi_load(path, &width, &height, &nr_channels, 0);
-    if (data)
-    {
-        GLenum format;
-        if (nr_channels == 1)
-        {
+    int width, height, components;
+
+    unsigned char* data = stbi_load(path.c_str(), &width, &height, &components, 0);
+    if (data) {
+        GLenum format = 0;
+        if (components == 1) {
             format = GL_RED;
-        }
-        else if (nr_channels == 3)
-        {
+        } else if (components == 3) {
             format = GL_RGB;
         }
-        else if (nr_channels == 4)
-        {
+        else if (components == 4) {
             format = GL_RGBA;
         }
 
-        glBindTexture(GL_TEXTURE_2D, texture_id);
+        glBindTexture(GL_TEXTURE_2D, mId);
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+        // 指定纹理参数
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        stbi_image_free(data);
     }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
+    else {
+        printf("Texture LoadTextureFromFile failed:%s\n", path.c_str());
     }
-    stbi_image_free(data);
-    return texture_id;
+}
+
+// TODO
+Texture::~Texture() {
+    //glDeleteTextures(1, &id);
+}
+
+unsigned int Texture::getId() const {
+    return mId;
+}
+
+std::string Texture::getType() const {
+    return mType;
+}
+
+std::string Texture::getName() const {
+    return mName;
 }

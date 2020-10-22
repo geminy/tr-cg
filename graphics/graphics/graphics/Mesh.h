@@ -1,46 +1,39 @@
-#pragma once
 #ifndef MESH_H
 #define MESH_H
 
-#include <glad/glad.h>
+#include "Texture.h"
+
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include "Shader.h"
 
 #include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
 #include <vector>
-using namespace std;
 
-struct Vertex {
-	glm::vec3 Position;
-	glm::vec3 Normal;
-	glm::vec2 TexCoords;
-	glm::vec3 Tangent;
-	glm::vec3 Bitangent;
+class Shader;
+
+struct Vertex
+{
+	glm::vec3 position;
+	glm::vec3 normal;
+	glm::vec2 texCoords;
+	glm::vec3 tangent;
+	glm::vec3 bitangent;
 };
-struct MeshTexture {
-	unsigned int id;
-	string type;
-	string path;
-};
-class Mesh {
+
+class Mesh
+{
 public:
-	vector<Vertex> vertices;
-	vector<unsigned int>indices;
-	vector<MeshTexture> textures;
-	unsigned int VAO;
+	Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, const std::vector<Texture>& textures);
+	~Mesh();
 
-	Mesh();
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<MeshTexture> textures);
-	void Draw(Shader shader);
+	void draw(const Shader& shader);
 
 private:
-	unsigned int VBO, EBO;
-	void setupMesh();
+	unsigned int mVAO;
+	unsigned int mVBO;
+	unsigned int mEBO;
+	std::vector<Vertex> mVertices;
+	std::vector<unsigned int> mIndices;
+	std::vector<Texture> mTextures;
 };
 
-#endif // !__MESH_H__
+#endif // !MESH_H

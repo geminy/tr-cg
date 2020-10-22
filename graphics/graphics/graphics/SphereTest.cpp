@@ -8,11 +8,11 @@
 #include <cmath>
 #include <vector>
 
-const float PI = 3.14159265358979323846f;
+const static float PI = 3.14159265358979323846f;
 
 // 将球横纵划分成50X50的网格
-const int Y_SEGMENTS = 50;
-const int X_SEGMENTS = 50;
+const static int Y_SEGMENTS = 50;
+const static int X_SEGMENTS = 50;
 
 const static char* VERTEX_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\shader\\Sphere.vert";
 const static char* FRAGMENT_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\shader\\Sphere.frag";
