@@ -1,2 +1,17 @@
-﻿  ModelTest.cpp
+﻿  Camera.cpp
+  CameraTest.cpp
+  CubeTest.cpp
+  main.cpp
+  Application.cpp
+  Mesh.cpp
+  Model.cpp
+  ModelTest.cpp
+  QuadrangleTest.cpp
+  Shader.cpp
+  SphereTest.cpp
+  StbImageImpl.cpp
+  Texture.cpp
+  TriangleTest.cpp
+  WindowTest.cpp
+  正在生成代码...
   graphics.vcxproj -> F:\evo\github\tr-cg\graphics\graphics\x64\Debug\graphics.exe

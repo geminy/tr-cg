@@ -54,6 +54,12 @@
     <ClCompile Include="StbImageImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CubeTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractRenderer.h">
@@ -92,6 +98,12 @@
     <ClInclude Include="ModelTest.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CubeTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\Sphere.frag">
@@ -104,6 +116,18 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="res\shader\Model.vert">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\Cube.frag">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\Cube.vert">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\Camera.frag">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\Camera.vert">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

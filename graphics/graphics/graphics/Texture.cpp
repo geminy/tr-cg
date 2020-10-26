@@ -13,14 +13,14 @@ Texture::Texture(const std::string& path, const std::string& type, const std::st
     int width, height, components;
 
     unsigned char* data = stbi_load(path.c_str(), &width, &height, &components, 0);
+    printf("Texture path:%s width:%d height:%d components:%d\n", path.c_str(), width, height, components);
     if (data) {
         GLenum format = 0;
         if (components == 1) {
             format = GL_RED;
         } else if (components == 3) {
             format = GL_RGB;
-        }
-        else if (components == 4) {
+        } else if (components == 4) {
             format = GL_RGBA;
         }
 
@@ -37,7 +37,7 @@ Texture::Texture(const std::string& path, const std::string& type, const std::st
         stbi_image_free(data);
     }
     else {
-        printf("Texture LoadTextureFromFile failed:%s\n", path.c_str());
+        printf("Texture stbi_load failed:%s\n", path.c_str());
     }
 }
 

@@ -8,14 +8,14 @@
 #include <cmath>
 #include <vector>
 
+const static char* VERTEX_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\shader\\Sphere.vert";
+const static char* FRAGMENT_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\shader\\Sphere.frag";
+
 const static float PI = 3.14159265358979323846f;
 
 // 将球横纵划分成50X50的网格
 const static int Y_SEGMENTS = 50;
 const static int X_SEGMENTS = 50;
-
-const static char* VERTEX_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\shader\\Sphere.vert";
-const static char* FRAGMENT_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\shader\\Sphere.frag";
 
 SphereTest::SphereTest() {
 	// 1.vao
@@ -93,7 +93,7 @@ void SphereTest::render() const {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	// 3.vao draw
+	// 3.draw with vao
 	glBindVertexArray(mVAO);
 	glDrawElements(GL_TRIANGLES, X_SEGMENTS * Y_SEGMENTS * 6, GL_UNSIGNED_INT, 0);
 	// 点阵模式

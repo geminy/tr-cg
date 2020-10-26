@@ -1,17 +1,16 @@
-#ifndef MODEL_TEST_H
-#define MODEL_TEST_H
+#ifndef CAMERA_TEST_H
+#define CAMERA_TEST_H
 
 #include "AbstractRenderer.h"
 #include "Camera.h"
 
 class Shader;
-class Model;
 
-class ModelTest : public AbstractRenderer
+class CameraTest : public AbstractRenderer
 {
 public:
-	ModelTest();
-	~ModelTest();
+	CameraTest();
+	~CameraTest();
 
 	void render() const override;
 
@@ -23,9 +22,10 @@ public:
 	void onMovementRight(float deltaTime) override;
 
 private:
+	unsigned int mVAO;
+	unsigned int mVBO;
 	Camera mCamera;
 	Shader* mShader;
-	Model* mModel;
 };
 
-#endif // !MODEL_TEST_H
+#endif // !CAMERA_TEST_H

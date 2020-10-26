@@ -4,6 +4,8 @@
 #include "QuadrangleTest.h"
 #include "SphereTest.h"
 #include "ModelTest.h"
+#include "CubeTest.h"
+#include "CameraTest.h"
 
 int main()
 {
@@ -12,7 +14,9 @@ int main()
 	//Application::getInstance().render(*new TriangleTest());
 	//Application::getInstance().render(*new QuadrangleTest());
 	//Application::getInstance().render(*new SphereTest());
-	Application::GetInstance().render(*new ModelTest());
+	//Application::GetInstance().render(*new ModelTest());
+	//Application::GetInstance().render(*new CubeTest());
+	Application::GetInstance().render(*new CameraTest());
 	//Application::getInstance().destroy();
 
 	return 0;

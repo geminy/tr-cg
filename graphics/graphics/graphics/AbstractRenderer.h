@@ -8,7 +8,7 @@ public:
 
 	virtual void render() const = 0;
 
-	virtual void onMouseMoved(float xPox, float yPos) {};
+	virtual void onMouseMoved(float xPox, float yPos, float xOffset, float yOffset) {};
 	virtual void onMouseScrolled(float xOffset, float yOffset) {};
 	virtual void onMovementUp(float deltaTime) {};
 	virtual void onMovementDown(float deltaTime) {};

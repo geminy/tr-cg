@@ -68,8 +68,7 @@ void Camera::onMouseScrolled(float xOffset, float yOffset)
 
 	if (mZoom <= 1.0f) {
 		mZoom = 1.0f;
-	}
-	else if (mZoom >= 45.0f) {
+	} else if (mZoom >= 45.0f) {
 		mZoom = 45.0f;
 	}
 }

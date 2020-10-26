@@ -18,12 +18,17 @@ public:
 
 	void render(const AbstractRenderer& renderer);
 
+	int getWindowWidth() const;
+	int getWindowHeight() const;
+
 private:
 	Application();
 	Application(const Application&) = delete;
 	Application& operator=(const Application&) = delete;
 
 private:
+	int mWidth;
+	int mHeight;
 	bool mCreated;
 	GLFWwindow* mWindow;
 };

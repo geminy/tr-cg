@@ -8,6 +8,7 @@
 Model::Model(const std::string& path)
 {
 	// 1.file
+	printf("Model path:%s\n", path.c_str());
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {

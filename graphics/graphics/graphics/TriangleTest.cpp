@@ -63,7 +63,7 @@ void TriangleTest::render() const {
     // 2.shader
     mShader->useProgram();
 
-    // 3.vao draw
+    // 3.draw with vao
     glBindVertexArray(mVAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindVertexArray(0);

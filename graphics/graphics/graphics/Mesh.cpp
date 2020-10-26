@@ -65,21 +65,21 @@ void Mesh::draw(const Shader& shader) {
 	for (int i = 0; i < mTextures.size(); i++) {
 		glActiveTexture(GL_TEXTURE0 + i);
 		std::string number;
-		std::string name = mTextures[i].getType();
-		if (name == "texture_diffuse") {
+		std::string type = mTextures[i].getType();
+		if (type == "texture_diffuse") {
 			number = std::to_string(diffuse++);
-		} else if (name == "texture_specular") {
+		} else if (type == "texture_specular") {
 			number = std::to_string(specular++);
-		} else if (name == "texture_normal") {
+		} else if (type == "texture_normal") {
 			number = std::to_string(normal++);
-		} else if (name == "texture_height") {
+		} else if (type == "texture_height") {
 			number = std::to_string(height++);
 		}
-		shader.setUniformInt(name + number, i);
+		shader.setUniformInt(type + number, i);
 		glBindTexture(GL_TEXTURE_2D, mTextures[i].getId());
 	}
 
-	// 2.vao
+	// 2.draw with vao
 	glBindVertexArray(mVAO);
 	glDrawElements(GL_TRIANGLES, (GLsizei)mIndices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

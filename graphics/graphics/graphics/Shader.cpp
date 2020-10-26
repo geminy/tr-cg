@@ -84,6 +84,8 @@ void Shader::setUniformMat4(const std::string& name, const glm::mat4& value) con
 }
 
 void Shader::createProgramFromSource(const char* vertex, const char* fragment) {
+    printf("Shader createProgramFromSource vertex:%s\n", vertex);
+    printf("Shader createProgramFromSource fragment:%s\n", fragment);
     // 1.vertex shader
     int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertex, nullptr);
@@ -103,12 +105,14 @@ void Shader::createProgramFromSource(const char* vertex, const char* fragment) {
     glLinkProgram(mProgramId);
     checkStatus(mProgramId, false);
 
-    // 3.cleanup
+    // 3.delete
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 }
 
 void Shader::createProgramFromPath(const char* vertex, const char* fragment) {
+    printf("Shader createProgramFromPath vertex:%s\n", vertex);
+    printf("Shader createProgramFromPath fragment:%s\n", fragment);
     std::stringstream vertexStr, fragmentStr;
     std::ifstream vertexFile, fragmentFile;
     vertexFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);

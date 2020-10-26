@@ -1,5 +1,6 @@
 #include "ModelTest.h"
 
+#include "Application.h"
 #include "Shader.h"
 #include "Model.h"
 
@@ -12,8 +13,6 @@ const static char* FRAGMENT_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\
 const static char* MODEL_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\model\\character.obj";
 
 // TODO
-const static float ScreenWidth = 1280.0f;
-const static float ScreenHeight = 720.0f;
 const static glm::vec3 LightPos(8.0f, 8.0f, 5.0f);
 
 ModelTest::ModelTest()
@@ -50,7 +49,7 @@ void ModelTest::render() const {
 	glm::mat4 view(1);
 	view = mCamera.getViewMatrix();
 	glm::mat4 projection(1);
-	projection = glm::perspective(glm::radians(mCamera.getZoom()), ScreenWidth / ScreenHeight, 0.1f, 100.0f);
+	projection = glm::perspective(glm::radians(mCamera.getZoom()), 1.0f * Application::GetInstance().getWindowWidth() / Application::GetInstance().getWindowHeight(), 0.1f, 100.0f);
 	mShader->setUniformMat4("model", model);
 	mShader->setUniformMat4("view", view);
 	mShader->setUniformMat4("projection", projection);
@@ -61,17 +60,8 @@ void ModelTest::render() const {
 	mModel->draw(*mShader);
 }
 
-void ModelTest::onMouseMoved(float xPos, float yPos)
+void ModelTest::onMouseMoved(float xPos, float yPos, float xOffset, float yOffset)
 {
-	static float lastX = xPos;
-	static float lastY = yPos;
-
-	float xOffset = xPos - lastX;
-	float yOffset = lastY - yPos;
-
-	lastX = xPos;
-	lastY = yPos;
-
 	mCamera.onMouseMoved(xOffset, yOffset);
 }
 

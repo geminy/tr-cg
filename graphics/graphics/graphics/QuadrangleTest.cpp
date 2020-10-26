@@ -81,7 +81,7 @@ void QuadrangleTest::render() const {
     // 2.shader
     mShader->useProgram();
 
-    // 3.vao draw
+    // 3.draw with vao
     glBindVertexArray(mVAO);
     //glDrawArrays(GL_TRIANGLES, 0, 6);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // ebo
