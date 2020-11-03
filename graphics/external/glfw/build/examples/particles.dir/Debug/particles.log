@@ -1,7 +1,0 @@
-﻿  Building Custom Rule F:/evo/github/tr-cg/graphics/external/glfw/examples/CMakeLists.txt
-  particles.c
-  tinycthread.c
-  getopt.c
-  glad_gl.c
-  正在生成代码...
-  particles.vcxproj -> F:\evo\github\tr-cg\graphics\external\glfw\build\examples\Debug\particles.exe
