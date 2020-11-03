@@ -55,7 +55,8 @@ TriangleTest::~TriangleTest() {
     mShader = nullptr;
 }
 
-void TriangleTest::render() const {
+void TriangleTest::render()
+{
     // 1.clear color buffer
     glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

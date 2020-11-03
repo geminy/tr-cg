@@ -11,7 +11,7 @@ public:
 	CubeTest();
 	~CubeTest();
 
-	void render() const override;
+	void render() override;
 
 private:
 	unsigned int mVAO;

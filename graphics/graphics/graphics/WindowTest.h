@@ -9,7 +9,7 @@ public:
 	WindowTest();
 	~WindowTest();
 
-	void render() const override;
+	void render() override;
 };
 
 #endif // !WINDOW_TEST_H

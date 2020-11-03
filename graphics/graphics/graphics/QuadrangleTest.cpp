@@ -73,7 +73,8 @@ QuadrangleTest::~QuadrangleTest() {
     mShader = nullptr;
 }
 
-void QuadrangleTest::render() const {
+void QuadrangleTest::render()
+{
     // 1.clear color buffer
     glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

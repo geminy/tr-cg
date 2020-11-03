@@ -1,16 +1,18 @@
-#ifndef CAMERA_TEST_H
-#define CAMERA_TEST_H
+#ifndef PHONE_TEST_H
+#define PHONE_TEST_H
 
 #include "AbstractRenderer.h"
 #include "Camera.h"
+#include "Light.h"
 
 class Shader;
 
-class CameraTest : public AbstractRenderer
+// Phong
+class PhoneTest : public AbstractRenderer
 {
 public:
-	CameraTest();
-	~CameraTest();
+	PhoneTest();
+	~PhoneTest();
 
 	void render() override;
 
@@ -20,12 +22,18 @@ public:
 	void onMovementDown(float deltaTime) override;
 	void onMovementLeft(float deltaTime) override;
 	void onMovementRight(float deltaTime) override;
+	void onDigitKeyPressed(int digit) override;
 
 private:
-	unsigned int mVAO;
+	unsigned int mVAOCube;
+	unsigned int mVAOLamp;
 	unsigned int mVBO;
 	Camera mCamera;
-	Shader* mShader;
+	DirectLight mDirectLight;
+	PointLight mPointLights[6];
+	SpotLight mSpotLight;
+	Shader* mShaderCube;
+	Shader* mShaderLamp;
 };
 
-#endif // !CAMERA_TEST_H
+#endif // !PHONE_TEST_H

@@ -11,7 +11,7 @@ public:
 	TriangleTest();
 	~TriangleTest();
 
-	void render() const override;
+	void render() override;
 
 private:
 	unsigned int mVAO;

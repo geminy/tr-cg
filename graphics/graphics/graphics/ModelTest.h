@@ -13,7 +13,7 @@ public:
 	ModelTest();
 	~ModelTest();
 
-	void render() const override;
+	void render() override;
 
 	void onMouseMoved(float xPox, float yPos, float xOffset, float yOffset) override;
 	void onMouseScrolled(float xOffset, float yOffset) override;

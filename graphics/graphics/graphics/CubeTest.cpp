@@ -94,7 +94,7 @@ CubeTest::~CubeTest() {
     mShader = nullptr;
 }
 
-void CubeTest::render() const {
+void CubeTest::render() {
     // 1.clear buffer
     glClearColor(0.0f, 0.34f, 0.57f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -6,6 +6,7 @@
 #include "ModelTest.h"
 #include "CubeTest.h"
 #include "CameraTest.h"
+#include "PhoneTest.h"
 
 int main()
 {
@@ -16,7 +17,8 @@ int main()
 	//Application::getInstance().render(*new SphereTest());
 	//Application::GetInstance().render(*new ModelTest());
 	//Application::GetInstance().render(*new CubeTest());
-	Application::GetInstance().render(*new CameraTest());
+	//Application::GetInstance().render(*new CameraTest());
+	Application::GetInstance().render(*new PhoneTest());
 	//Application::getInstance().destroy();
 
 	return 0;
