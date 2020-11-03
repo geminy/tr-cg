@@ -8,6 +8,8 @@ public:
 
 	virtual void render() = 0;
 
+	virtual void onWindowSizeChanged(int width, int height) {};
+
 	virtual void onMouseMoved(float xPox, float yPos, float xOffset, float yOffset) {};
 	virtual void onMouseScrolled(float xOffset, float yOffset) {};
 

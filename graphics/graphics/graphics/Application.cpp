@@ -13,6 +13,9 @@ static void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	printf("Application FramebufferSizeCallback window:%p width:%d height:%d\n", window, width, height);
 	glViewport(0, 0, width, height);
+	if (CurrentRenderer != nullptr) {
+		CurrentRenderer->onWindowSizeChanged(width, height);
+	}
 }
 
 static void CursorPosCallback(GLFWwindow* window, double xPos, double yPos)
@@ -138,7 +141,7 @@ void Application::create(int width, int height, const std::string& title)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_RESIZABLE, true);
+	glfwWindowHint(GLFW_RESIZABLE, false);
 
 	int major, minor, rev;
 	glfwGetVersion(&major, &minor, &rev);
@@ -154,7 +157,7 @@ void Application::create(int width, int height, const std::string& title)
 	glfwSetCursorPosCallback(mWindow, CursorPosCallback);
 	glfwSetScrollCallback(mWindow, ScrollCallback);
 	glfwSetKeyCallback(mWindow, KeyCallback);
-	//glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Òþ²Ø¹â±ê
 
 	// 2.glad
 	result = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);

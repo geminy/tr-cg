@@ -12,7 +12,7 @@ QuadrangleTest::QuadrangleTest() {
     // 2.vbo
     glGenBuffers(1, &mVBO);
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-    // 四边形的顶点数据
+    // 四边形 = 两个三角形
     float vertices[] = {
         // 第一个三角形
         0.5f, 0.5f, 0.0f,     // 右上
@@ -28,7 +28,7 @@ QuadrangleTest::QuadrangleTest() {
     // 3.ebo
     glGenBuffers(1, &mEBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
-    // 四边形的索引数据
+    // 使用索引（可去除重复的顶点数据）
     unsigned int indices[] = {
         0, 1, 5,              // 第一个三角形
         1, 2, 5               // 第二个三角形
@@ -60,8 +60,7 @@ QuadrangleTest::QuadrangleTest() {
         "    FragColor = vec4(1.0f, 0.0f, 0.f, 1.0f);\n"
         "}\n\0";
     mShader = new Shader(vertexShaderSource, fragmentShaderSource);
-    // 线框模式
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //mShader->enableLineMode(); // 线框模式
 }
 
 QuadrangleTest::~QuadrangleTest() {
@@ -85,6 +84,6 @@ void QuadrangleTest::render()
     // 3.draw with vao
     glBindVertexArray(mVAO);
     //glDrawArrays(GL_TRIANGLES, 0, 6);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // ebo
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // draw with ebo
     glBindVertexArray(0);
 }

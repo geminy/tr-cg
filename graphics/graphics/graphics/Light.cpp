@@ -10,10 +10,11 @@ const static glm::vec3 DEFAULT_DIRECTION = glm::vec3(0.0f, 0.0f, -1.0f);
 const static glm::vec3 DEFAULT_ATTENUATION_RATIO = glm::vec3(1.0f, 0.09f, 0.032f);
 const static glm::vec2 DEFAULT_INTENSITY_RATIO = glm::vec2(cos(glm::radians(12.5f)), cos(glm::radians(15.0f)));
 
-Light::Light() : Light(DEFAULT_AMBIENT, DEFAULT_DIFFUSE, DEFAULT_SPECULAR) {}
+Light::Light()
+    : Light(DEFAULT_AMBIENT, DEFAULT_DIFFUSE, DEFAULT_SPECULAR) {}
 
 Light::Light(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
-    : ambient(ambient), diffuse(diffuse), specular(specular) {}
+    : ambient(ambient), diffuse(diffuse), specular(specular), on(false) {}
 
 Light::~Light() {}
 
@@ -52,7 +53,8 @@ void Light::setOn(bool on)
     this->on = on;
 }
 
-DirectLight::DirectLight() : DirectLight(DEFAULT_DIRECTION) {}
+DirectLight::DirectLight()
+    : DirectLight(DEFAULT_DIRECTION) {}
 
 DirectLight::DirectLight(glm::vec3 direction)
     : DirectLight(direction, DEFAULT_AMBIENT, DEFAULT_DIFFUSE, DEFAULT_SPECULAR) {}
@@ -74,14 +76,15 @@ void DirectLight::setDirection(float x, float y, float z)
 
 void DirectLight::draw(const Shader& shader, std::string name)
 {
-    //shader.setUniformBool(name + ".on", on);
+    shader.setUniformBool(name + ".on", on);
     shader.setUniformVec3(name + ".direction", direction);
     shader.setUniformVec3(name + ".ambient", ambient);
     shader.setUniformVec3(name + ".diffuse", diffuse);
     shader.setUniformVec3(name + ".specular", specular);
 }
 
-PointLight::PointLight() : PointLight(DEFAULT_POSITION) {}
+PointLight::PointLight()
+    : PointLight(DEFAULT_POSITION) {}
 
 PointLight::PointLight(glm::vec3 position) 
     : PointLight(position, DEFAULT_AMBIENT, DEFAULT_DIFFUSE, DEFAULT_SPECULAR) {}

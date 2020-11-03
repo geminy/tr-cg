@@ -185,6 +185,10 @@
     <None Include="res\shader\Cube.vert" />
     <None Include="res\shader\Model.frag" />
     <None Include="res\shader\Model.vert" />
+    <None Include="res\shader\PhongDrawCube.frag" />
+    <None Include="res\shader\PhongDrawCube.vert" />
+    <None Include="res\shader\PhongDrawLamp.frag" />
+    <None Include="res\shader\PhongDrawLamp.vert" />
     <None Include="res\shader\Sphere.frag" />
     <None Include="res\shader\Sphere.vert" />
   </ItemGroup>

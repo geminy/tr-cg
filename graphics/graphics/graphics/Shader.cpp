@@ -6,7 +6,8 @@
 #include <fstream>
 #include <sstream>
 
-Shader::Shader(const char* vertex, const char* fragment, bool fromPath) {
+Shader::Shader(const char* vertex, const char* fragment, bool fromPath)
+{
     if (fromPath) {
         createProgramFromPath(vertex, fragment);
     }
@@ -15,12 +16,35 @@ Shader::Shader(const char* vertex, const char* fragment, bool fromPath) {
     }
 }
 
-Shader::~Shader() {
+Shader::~Shader()
+{
     glDeleteProgram(mProgramId);
 }
 
-void Shader::useProgram() const {
+unsigned int Shader::getProgramId() const
+{
+    return mProgramId;
+}
+
+void Shader::useProgram() const
+{
     glUseProgram(mProgramId);
+}
+
+void Shader::enableLineMode() const
+{
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+}
+
+void Shader::enableCullFace() const
+{
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+}
+
+void Shader::enableDepthTest() const
+{
+    glEnable(GL_DEPTH_TEST);
 }
 
 void Shader::setUniformBool(const std::string& name, bool value) const
@@ -83,9 +107,10 @@ void Shader::setUniformMat4(const std::string& name, const glm::mat4& value) con
     glUniformMatrix4fv(getUniform(name), 1, GL_FALSE, &value[0][0]);
 }
 
-void Shader::createProgramFromSource(const char* vertex, const char* fragment) {
-    printf("Shader createProgramFromSource vertex:%s\n", vertex);
-    printf("Shader createProgramFromSource fragment:%s\n", fragment);
+void Shader::createProgramFromSource(const char* vertex, const char* fragment)
+{
+    //printf("Shader createProgramFromSource vertex:\n----------\n%s\n----------\n", vertex);
+    //printf("Shader createProgramFromSource fragment:\n----------\n%s\n----------\n", fragment);
     // 1.vertex shader
     int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertex, nullptr);
@@ -110,7 +135,8 @@ void Shader::createProgramFromSource(const char* vertex, const char* fragment) {
     glDeleteShader(fragmentShader);
 }
 
-void Shader::createProgramFromPath(const char* vertex, const char* fragment) {
+void Shader::createProgramFromPath(const char* vertex, const char* fragment)
+{
     printf("Shader createProgramFromPath vertex:%s\n", vertex);
     printf("Shader createProgramFromPath fragment:%s\n", fragment);
     std::stringstream vertexStr, fragmentStr;
@@ -131,7 +157,8 @@ void Shader::createProgramFromPath(const char* vertex, const char* fragment) {
     createProgramFromSource(vertexStr.str().c_str(), fragmentStr.str().c_str());
 }
 
-void Shader::checkStatus(unsigned int id, bool compile) const {
+void Shader::checkStatus(unsigned int id, bool compile) const
+{
     int success;
     char infoLog[512];
     if (compile) {
@@ -150,7 +177,8 @@ void Shader::checkStatus(unsigned int id, bool compile) const {
     }
 }
 
-int Shader::getUniform(const std::string& name) const {
+int Shader::getUniform(const std::string& name) const
+{
     int position = glGetUniformLocation(mProgramId, name.c_str());
     if (position == -1) {
         printf("Shader getUniform error:%s\n", name.c_str());

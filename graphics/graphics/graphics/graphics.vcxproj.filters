@@ -142,5 +142,17 @@
     <None Include="res\shader\Camera.vert">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="res\shader\PhongDrawCube.frag">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\PhongDrawCube.vert">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\PhongDrawLamp.frag">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shader\PhongDrawLamp.vert">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

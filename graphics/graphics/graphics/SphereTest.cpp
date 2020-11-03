@@ -3,7 +3,6 @@
 #include "Shader.h"
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 #include <cmath>
 #include <vector>
@@ -14,8 +13,8 @@ const static char* FRAGMENT_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\
 const static float PI = 3.14159265358979323846f;
 
 // 将球横纵划分成50X50的网格
-const static int Y_SEGMENTS = 50;
 const static int X_SEGMENTS = 50;
+const static int Y_SEGMENTS = 50;
 
 SphereTest::SphereTest() {
 	// 1.vao
@@ -25,8 +24,8 @@ SphereTest::SphereTest() {
 	// 2.vbo
 	glGenBuffers(1, &mVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-	// 生成球的顶点
-	std::vector<float> sphereVertices;
+	// 球的顶点
+	std::vector<float> vertices;
 	for (int y = 0; y <= Y_SEGMENTS; y++) {
 		for (int x = 0; x <= X_SEGMENTS; x++) {
 			float xSegment = (float)x / (float)X_SEGMENTS;
@@ -34,30 +33,30 @@ SphereTest::SphereTest() {
 			float xPos = std::sin(ySegment * PI) * std::cos(xSegment * 2.0f * PI);
 			float yPos = std::cos(ySegment * PI);
 			float zPos = std::sin(ySegment * PI) * std::sin(xSegment * 2.0f * PI);
-			sphereVertices.push_back(xPos);
-			sphereVertices.push_back(yPos);
-			sphereVertices.push_back(zPos);
+			vertices.push_back(xPos);
+			vertices.push_back(yPos);
+			vertices.push_back(zPos);
 		}
 	}
-	glBufferData(GL_ARRAY_BUFFER, sphereVertices.size() * sizeof(float), &sphereVertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
 
 	// 3.ebo
 	glGenBuffers(1, &mEBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
-	// 生成球的索引
-	std::vector<int> sphereIndices;
+	// 球的索引
+	std::vector<int> indices;
 	for (int i = 0; i < Y_SEGMENTS; i++) {
 		for (int j = 0; j < X_SEGMENTS; j++) {
-			sphereIndices.push_back(i * (X_SEGMENTS + 1) + j);
-			sphereIndices.push_back((i + 1) * (X_SEGMENTS + 1) + j);
-			sphereIndices.push_back((i + 1) * (X_SEGMENTS + 1) + j + 1);
+			indices.push_back(i * (X_SEGMENTS + 1) + j);
+			indices.push_back((i + 1) * (X_SEGMENTS + 1) + j);
+			indices.push_back((i + 1) * (X_SEGMENTS + 1) + j + 1);
 
-			sphereIndices.push_back(i * (X_SEGMENTS + 1) + j);
-			sphereIndices.push_back((i + 1) * (X_SEGMENTS + 1) + j + 1);
-			sphereIndices.push_back(i * (X_SEGMENTS + 1) + j + 1);
+			indices.push_back(i * (X_SEGMENTS + 1) + j);
+			indices.push_back((i + 1) * (X_SEGMENTS + 1) + j + 1);
+			indices.push_back(i * (X_SEGMENTS + 1) + j + 1);
 		}
 	}
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sphereIndices.size() * sizeof(int), &sphereIndices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(int), &indices[0], GL_STATIC_DRAW);
 
 	// 4.vertex attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
@@ -70,7 +69,8 @@ SphereTest::SphereTest() {
 
 	// 6.shader
 	mShader = new Shader(VERTEX_PATH, FRAGMENT_PATH, true);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	mShader->enableLineMode();
+	mShader->enableCullFace();
 }
 
 SphereTest::~SphereTest() {
@@ -90,11 +90,8 @@ void SphereTest::render()
 
 	// 2.shader
 	mShader->useProgram();
-	// 开启面剔除（只需要展示一个面，否则会有重合）
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
 
-	// 3.draw with vao
+	// 3.draw with ebo
 	glBindVertexArray(mVAO);
 	glDrawElements(GL_TRIANGLES, X_SEGMENTS * Y_SEGMENTS * 6, GL_UNSIGNED_INT, 0);
 	// 点阵模式

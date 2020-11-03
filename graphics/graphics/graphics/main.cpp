@@ -11,14 +11,14 @@
 int main()
 {
 	Application::GetInstance().create();
-	//Application::getInstance().render(*new WindowTest());
-	//Application::getInstance().render(*new TriangleTest());
-	//Application::getInstance().render(*new QuadrangleTest());
-	//Application::getInstance().render(*new SphereTest());
-	//Application::GetInstance().render(*new ModelTest());
-	//Application::GetInstance().render(*new CubeTest());
-	//Application::GetInstance().render(*new CameraTest());
-	Application::GetInstance().render(*new PhoneTest());
+	//Application::GetInstance().render(*new WindowTest()); // 1
+	//Application::GetInstance().render(*new TriangleTest()); // 2
+	//Application::GetInstance().render(*new QuadrangleTest()); // 3
+	//Application::GetInstance().render(*new SphereTest()); // 4
+	//Application::GetInstance().render(*new ModelTest()); // 5
+	//Application::GetInstance().render(*new CubeTest()); // 6
+	//Application::GetInstance().render(*new CameraTest()); // 7
+	Application::GetInstance().render(*new PhoneTest()); // 8
 	//Application::getInstance().destroy();
 
 	return 0;

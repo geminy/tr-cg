@@ -11,7 +11,12 @@ public:
 	Shader(const char* vertex, const char* fragment, bool fromPath = false);
 	~Shader();
 
+    unsigned int getProgramId() const;
 	void useProgram() const;
+
+    void enableLineMode() const;
+    void enableCullFace() const;
+    void enableDepthTest() const;
 
     void setUniformBool(const std::string& name, bool value) const;
     void setUniformInt(const std::string& name, int value) const;

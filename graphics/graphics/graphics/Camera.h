@@ -27,6 +27,10 @@ public:
 
     glm::mat4 getViewMatrix() const;
 
+    void zoom(float deltaScale);
+    void move(glm::vec3 distance);
+    void rotate(glm::vec3 rotate);
+
     void onMouseMoved(float xOffset, float yOffset);
     void onMouseScrolled(float xOffset, float yOffset);
 
@@ -37,18 +41,14 @@ public:
 
     void onDigitKeyPressed(int digit);
 
-    void zoom(float scale);
-    void move(glm::vec3 distance);
-    void rotate(glm::vec3 rotate);
-
 private:
     void updateCameraVectors();
 
 private:
     glm::vec3 mPosition;
     glm::vec3 mWorldUp;
-    float mYaw;
-    float mPitch;
+    float mYaw; // 偏航角
+    float mPitch; // 俯仰角
 
     float mMovementSpeed;
     float mMouseSensiticity;

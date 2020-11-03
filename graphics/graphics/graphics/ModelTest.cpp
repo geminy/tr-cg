@@ -12,7 +12,6 @@ const static char* VERTEX_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\gr
 const static char* FRAGMENT_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\shader\\Model.frag";
 const static char* MODEL_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\model\\character.obj";
 
-// TODO
 const static glm::vec3 LightPos(8.0f, 8.0f, 5.0f);
 
 ModelTest::ModelTest()
@@ -20,8 +19,7 @@ ModelTest::ModelTest()
 {
 	// 1.shader
 	mShader = new Shader(VERTEX_PATH, FRAGMENT_PATH, true);
-	// ¿ªÆôÉî¶È²âÊÔ
-	glEnable(GL_DEPTH_TEST);
+	mShader->enableDepthTest();
 
 	// 2.model
 	mModel = new Model(MODEL_PATH);
@@ -41,8 +39,6 @@ void ModelTest::render() {
 
 	// 2.shader
 	mShader->useProgram();
-
-	// 3.model view projection
 	glm::mat4 model(1);
 	model = glm::translate(model, glm::vec3(0.0f, -0.7f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));

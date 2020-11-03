@@ -11,11 +11,6 @@
 const static char* VERTEX_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\shader\\Cube.vert";
 const static char* FRAGMENT_PATH = "F:\\evo\\github\\tr-cg\\graphics\\graphics\\graphics\\res\\shader\\Cube.frag";
 
-// TODO
-const static glm::vec3 CameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);     //摄像机位置
-const static glm::vec3 CameraFront = glm::vec3(0.0f, 0.0f, -1.0f);       //摄像机方向
-const static glm::vec3 CameraUp = glm::vec3(0.0f, 1.0f, 0.0f);           //摄像机上向量
-
 CubeTest::CubeTest() {
     // 1.vao
     glGenVertexArrays(1, &mVAO);
@@ -26,17 +21,17 @@ CubeTest::CubeTest() {
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
     // 立方体数组（位置、颜色）
     float vertices[] = {
-        -0.5f, -0.5f, -0.5f, 1.0f,0.0f,0.0f,
-        0.5f, -0.5f, -0.5f,  1.0f,0.0f,0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f,0.0f,0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f,0.0f,0.0f,
+        -0.5f, -0.5f, -0.5f,  1.0f,0.0f,0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,0.0f,0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f,0.0f,0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f,0.0f,0.0f,
         -0.5f,  0.5f, -0.5f,  1.0f,0.0f,0.0f,
         -0.5f, -0.5f, -0.5f,  1.0f,0.0f,0.0f,
 
         -0.5f, -0.5f,  0.5f,  0.0f,1.0f,0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f,1.0f,0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,1.0f,0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,1.0f,0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,1.0f,0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,1.0f,0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,1.0f,0.0f,
         -0.5f,  0.5f,  0.5f,  0.0f,1.0f,0.0f,
         -0.5f, -0.5f,  0.5f,  0.0f,1.0f,0.0f,
 
@@ -47,24 +42,24 @@ CubeTest::CubeTest() {
         -0.5f, -0.5f,  0.5f,  0.0f,0.0f,1.0f,
         -0.5f,  0.5f,  0.5f,  0.0f,0.0f,1.0f,
 
-        0.5f,  0.5f,  0.5f,  0.5f,0.0f,0.0f,
-        0.5f,  0.5f, -0.5f,  0.5f,0.0f,0.0f,
-        0.5f, -0.5f, -0.5f,  0.5f,0.0f,0.0f,
-        0.5f, -0.5f, -0.5f,  0.5f,0.0f,0.0f,
-        0.5f, -0.5f,  0.5f,  0.5f,0.0f,0.0f,
-        0.5f,  0.5f,  0.5f,  0.5f,0.0f,0.0f,
+         0.5f,  0.5f,  0.5f,  0.5f,0.0f,0.0f,
+         0.5f,  0.5f, -0.5f,  0.5f,0.0f,0.0f,
+         0.5f, -0.5f, -0.5f,  0.5f,0.0f,0.0f,
+         0.5f, -0.5f, -0.5f,  0.5f,0.0f,0.0f,
+         0.5f, -0.5f,  0.5f,  0.5f,0.0f,0.0f,
+         0.5f,  0.5f,  0.5f,  0.5f,0.0f,0.0f,
 
         -0.5f, -0.5f, -0.5f,  0.0f,0.5f,0.0f,
-        0.5f, -0.5f, -0.5f,  0.0f,0.5f,0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f,0.5f,0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f,0.5f,0.0f,
+         0.5f, -0.5f, -0.5f,  0.0f,0.5f,0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,0.5f,0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,0.5f,0.0f,
         -0.5f, -0.5f,  0.5f,  0.0f,0.5f,0.0f,
         -0.5f, -0.5f, -0.5f,  0.0f,0.5f,0.0f,
 
         -0.5f,  0.5f, -0.5f,  0.0f,0.0f,0.5f,
-        0.5f,  0.5f, -0.5f,  0.0f,0.0f,0.5f,
-        0.5f,  0.5f,  0.5f,  0.0f,0.0f,0.5f,
-        0.5f,  0.5f,  0.5f,  0.0f,0.0f,0.5f,
+         0.5f,  0.5f, -0.5f,  0.0f,0.0f,0.5f,
+         0.5f,  0.5f,  0.5f,  0.0f,0.0f,0.5f,
+         0.5f,  0.5f,  0.5f,  0.0f,0.0f,0.5f,
         -0.5f,  0.5f,  0.5f,  0.0f,0.0f,0.5f,
         -0.5f,  0.5f, -0.5f,  0.0f,0.0f,0.5f
     };
@@ -82,7 +77,8 @@ CubeTest::CubeTest() {
 
     // 5.shader
     mShader = new Shader(VERTEX_PATH, FRAGMENT_PATH, true);
-    glEnable(GL_DEPTH_TEST);
+    //mShader->enableLineMode(); // 线框模式
+    mShader->enableDepthTest();
 }
 
 CubeTest::~CubeTest() {
@@ -96,18 +92,21 @@ CubeTest::~CubeTest() {
 
 void CubeTest::render() {
     // 1.clear buffer
-    glClearColor(0.0f, 0.34f, 0.57f, 1.0f);
+    glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // 2.shader
     mShader->useProgram();
     // Transform坐标变换矩阵
     glm::mat4 model(1); // model矩阵，局部坐标变换至世界坐标
-    model = glm::translate(model, glm::vec3(0.0, 0.0, 0.0));
-    model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
+    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f)); // 旋转角度跟随时间变化
     model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
     glm::mat4 view(1); // view矩阵，世界坐标变换至观察坐标系
-    view = glm::lookAt(CameraPosition, CameraPosition + CameraFront, CameraUp);
+    static glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);     //摄像机位置
+    static glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);       //摄像机方向
+    static glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);           //摄像机上向量
+    view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
     glm::mat4 projection(1); // projection矩阵，投影矩阵
     projection = glm::perspective(glm::radians(45.0f), 1.0f * Application::GetInstance().getWindowWidth() / Application::GetInstance().getWindowHeight(), 0.1f, 100.0f);
     // 向着色器中传入参数

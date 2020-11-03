@@ -4,7 +4,7 @@
 
 const static float SPEED = 2.5f;
 const static float SENSITIVITY = 0.1f;
-const static float ZOOM = 45.0f;
+const static float ZOOM = 60.0f;
 
 Camera::Camera(const glm::vec3& position, const glm::vec3& worldUp, float yaw, float pitch)
 	: mPosition(position), mWorldUp(worldUp)
@@ -85,71 +85,13 @@ glm::mat4 Camera::getViewMatrix() const
 	return glm::lookAt(mPosition, mPosition + mForward, mUp);
 }
 
-void Camera::onMouseMoved(float xOffset, float yOffset)
+void Camera::zoom(float deltaScale)
 {
-	float yawOffset = mMouseSensiticity * xOffset;
-	float pitchOffset = mMouseSensiticity * yOffset;
-
-	mYaw += yawOffset;
-	mPitch += pitchOffset;
-
-	if (mPitch > 89.0f) {
-		mPitch = 89.0f;
-	} else if (mPitch < -89.0f) {
-		mPitch = -89.0f;
+	mZoom += deltaScale;
+	if (mZoom > ZOOM) {
+		mZoom = ZOOM;
 	}
-
-	updateCameraVectors();
-}
-
-void Camera::onMouseScrolled(float xOffset, float yOffset)
-{
-	if (mZoom >= 1.0f && mZoom <= 45.0f) {
-		mZoom -= yOffset;
-	}
-
-	if (mZoom <= 1.0f) {
-		mZoom = 1.0f;
-	} else if (mZoom >= 45.0f) {
-		mZoom = 45.0f;
-	}
-}
-
-void Camera::onMovementUp(float deltaTime)
-{
-	float velocity = mMovementSpeed * deltaTime;
-	mPosition += mForward * velocity;
-}
-
-void Camera::onMovementDown(float deltaTime)
-{
-	float velocity = mMovementSpeed * deltaTime;
-	mPosition -= mForward * velocity;
-}
-
-void Camera::onMovementLeft(float deltaTime)
-{
-	float velocity = mMovementSpeed * deltaTime;
-	mPosition -= mRight * velocity;
-}
-
-void Camera::onMovementRight(float deltaTime)
-{
-	float velocity = mMovementSpeed * deltaTime;
-	mPosition += mRight * velocity;
-}
-
-void Camera::onDigitKeyPressed(int digit)
-{
-
-}
-
-void Camera::zoom(float scale)
-{
-	mZoom += scale;
-	if (mZoom > 60.0f) {
-		mZoom = 60.0f;
-	} else if (mZoom < 1.0f) {
+	else if (mZoom < 1.0f) {
 		mZoom = 1.0f;
 	}
 }
@@ -169,11 +111,47 @@ void Camera::rotate(glm::vec3 rotate)
 
 	if (mPitch > 89.0f) {
 		mPitch = 89.0f;
-	} else if (mPitch < -89.0f) {
+	}
+	else if (mPitch < -89.0f) {
 		mPitch = -89.0f;
 	}
 
 	updateCameraVectors();
+}
+
+void Camera::onMouseMoved(float xOffset, float yOffset)
+{
+	rotate(glm::vec3(xOffset, yOffset, 1.0f));
+}
+
+void Camera::onMouseScrolled(float xOffset, float yOffset)
+{
+	zoom(yOffset);
+}
+
+void Camera::onMovementUp(float deltaTime)
+{
+	move(mMovementSpeed * deltaTime * mForward);
+}
+
+void Camera::onMovementDown(float deltaTime)
+{
+	move(-mMovementSpeed * deltaTime * mForward);
+}
+
+void Camera::onMovementLeft(float deltaTime)
+{
+	move(-mMovementSpeed * deltaTime * mRight);
+}
+
+void Camera::onMovementRight(float deltaTime)
+{
+	move(mMovementSpeed * deltaTime * mRight);
+}
+
+void Camera::onDigitKeyPressed(int digit)
+{
+
 }
 
 void Camera::updateCameraVectors()

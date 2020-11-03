@@ -2,8 +2,6 @@
 
 #include "Application.h"
 #include "Shader.h"
-#include "Camera.h"
-#include "Light.h"
 
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
@@ -27,7 +25,7 @@ const static glm::vec3 PointLightPositions[] = {
 	glm::vec3(-3.5f, 0.0f, 0.0f)
 };
 
-// 光源颜色
+// 点光源颜色
 const static glm::vec3 LightColors[] = {
 	glm::vec3(1.0f, 0.0f, 0.0f),
 	glm::vec3(0.5f, 0.5f, 0.0f),
@@ -40,7 +38,7 @@ const static glm::vec3 LightColors[] = {
 // 控制开关灯
 static unsigned int LightBits = 0;
 
-const static bool IsLightOn(int index)
+static bool IsLightOn(int index)
 {
 	return (LightBits >> index) & 1;
 }
@@ -63,29 +61,24 @@ PhoneTest::PhoneTest()
 	mSpotLight = SpotLight(mCamera.getPosition(), mCamera.getForward(), glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(1.0f),
 		1.0f, 0.09f, 0.032f, cos(glm::radians(12.5f)), cos(glm::radians(15.0f)));
 
-	// 1.vao
 	glGenVertexArrays(1, &mVAOCube);
-	glBindVertexArray(mVAOCube);
-	glGenVertexArrays(1, &mVAOLamp);
-	glBindVertexArray(mVAOLamp);
-
-	// 2.vbo
 	glGenBuffers(1, &mVBO);
+
 	glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 	// 顶点数据																 
 	float vertices[] = {
 		// ---- 位置 ----       ---- 法线 ----   
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
 		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 
@@ -96,43 +89,45 @@ PhoneTest::PhoneTest()
 		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
 		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
 		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
 		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 	};
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	// 3.vertex attribute
+	
+	glBindVertexArray(mVAOCube);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	// 4.unbind
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glGenVertexArrays(1, &mVAOLamp);
+	glBindVertexArray(mVAOLamp);
+	glBindBuffer(GL_ARRAY_BUFFER, mVBO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
 
 	// 5.shader
 	mShaderCube = new Shader(VERTEX_PATH_CUBE, FRAGMENT_PATH_CUBE, true);
 	mShaderLamp = new Shader(VERTEX_PATH_LAMP, FRAGMENT_PATH_LAMP, true);
-	glEnable(GL_DEPTH_TEST);
+	mShaderCube->enableDepthTest();
 }
 
 PhoneTest::~PhoneTest()
@@ -189,7 +184,7 @@ void PhoneTest::render()
 	// 绘制立方体
 	glBindVertexArray(mVAOCube);
 	glm::mat4 model = glm::mat4(1.0f);
-	//model = glm::rotate(model, glfwGetTime(), glm::vec3(1.0f, 0.3f, 0.5f));
+	model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.3f, 0.5f));
 	mShaderCube->setUniformMat4("model", model);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
@@ -199,10 +194,8 @@ void PhoneTest::render()
 
 	// 绘制灯
 	glBindVertexArray(mVAOLamp);
-	for (int i = 0; i < 6; i++)
-	{
-		if (IsLightOn(i + 1))
-		{
+	for (int i = 0; i < 6; i++) {
+		if (IsLightOn(i + 1)) {
 			glm::mat4 model(1.0f);
 			model = glm::translate(model, PointLightPositions[i]);
 			model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));

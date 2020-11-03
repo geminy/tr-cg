@@ -43,8 +43,7 @@ TriangleTest::TriangleTest() {
         "    FragColor = vec4(1.0f, 0.0f, 0.f, 1.0f);\n"
         "}\n\0";
     mShader = new Shader(vertexShaderSource, fragmentShaderSource);
-    // Ïß¿òÄ£Ê½
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    mShader->enableLineMode();
 }
 
 TriangleTest::~TriangleTest() {
