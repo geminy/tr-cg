@@ -14,8 +14,8 @@ TriangleTest::TriangleTest() {
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
     float triangle[] = {
         -0.5f, -0.5f, 0.0f, // 左下
-        0.5f, -0.5f, 0.0f, // 右下
-        0.0f,  0.5f, 0.0f // 正上
+         0.5f, -0.5f, 0.0f, // 右下
+         0.0f,  0.5f, 0.0f  // 正上
     };
     glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
 
